@@ -67,6 +67,9 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
+        body.no-scroll {
+            overflow: hidden;
+        }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
@@ -259,26 +262,86 @@
         .gemini-modal-content h3 { margin-bottom: 1rem; }
         #gemini-caption, #coffee-message { min-height: 100px; color: var(--text-secondary); font-style: italic; }
 
-        /* Welcome Toast */
-        .welcome-toast {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translate(-50%, 200%);
-            background: var(--secondary-bg);
-            color: var(--text-primary);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            z-index: 3000;
-            transition: transform 0.5s ease-in-out;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* Welcome Popup */
+        .welcome-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 4000;
+            display: flex; align-items: center; justify-content: center;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
-        .welcome-toast.show {
-            transform: translate(-50%, 0);
+        .welcome-popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .welcome-popup {
+            position: relative;
+            width: 90%;
+            max-width: 550px;
+            padding: 3rem;
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-align: center;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+        .welcome-popup-overlay.show .welcome-popup {
+            transform: scale(1);
+        }
+        .welcome-popup::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 122, 255, 0.15), rgba(88, 86, 214, 0.15), rgba(255, 45, 85, 0.15));
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            z-index: -2;
+        }
+        .welcome-popup::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-size: cover;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .welcome-popup h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .welcome-popup p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .explore-btn {
+            padding: 0.8rem 2rem; background: var(--accent-color);
+            border: 1px solid var(--accent-color); color: #fff;
+            font-size: 1rem; cursor: pointer;
+            transition: all 0.3s ease; border-radius: 50px;
+        }
+        .explore-btn:hover {
+            background: transparent;
+            color: var(--accent-color);
         }
 
         /* Animations */
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         /* Responsive */
         @media (max-width: 1200px) { .photo-grid { columns: 3; } }
@@ -295,6 +358,8 @@
         @media (max-width: 576px) {
             .photo-grid { columns: 1; }
             .nav-container { padding: 0 1rem; }
+            .welcome-popup { padding: 2rem; }
+            .welcome-popup h2 { font-size: 1.5rem; }
         }
 
     </style>
@@ -374,7 +439,13 @@
         </section>
     </main>
 
-    <div class="welcome-toast" id="welcome-toast"></div>
+    <div class="welcome-popup-overlay" id="welcome-popup">
+        <div class="welcome-popup">
+            <h2>Welcome</h2>
+            <p>I'm Prasun Mishra, a photographer exploring the world through the lens of architecture and landscape. Enjoy your visit.</p>
+            <button class="explore-btn" id="explore-btn">Explore the Gallery</button>
+        </div>
+    </div>
 
     <div class="modal-backdrop" id="lightbox">
         <span class="modal-close">&times;</span>
@@ -416,7 +487,8 @@
         const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
         
         const coffeeButton = document.querySelector('.coffee-button');
-        const welcomeToast = document.getElementById('welcome-toast');
+        const welcomePopup = document.getElementById('welcome-popup');
+        const exploreBtn = document.getElementById('explore-btn');
 
         let currentPage = 1;
         let totalPhotos = 0;
@@ -440,44 +512,54 @@
             geminiModal.classList.add('active');
         });
 
-        // --- Gemini API Call Function ---
-        async function callGemini(prompt) {
-            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-            const payload = { contents: chatHistory };
-            const apiKey = ""; // API key is handled by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-            
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+        // --- Welcome Popup ---
+        exploreBtn.addEventListener('click', () => {
+            welcomePopup.classList.remove('show');
+            document.body.classList.remove('no-scroll');
+        });
 
-            if (!response.ok) {
-                throw new Error(`API request failed with status ${response.status}`);
-            }
-            
-            const result = await response.json();
-            
-            if (result.candidates && result.candidates.length > 0) {
-                return result.candidates[0].content.parts[0].text;
-            } else {
-                throw new Error("No content generated.");
+        function showWelcomePopup() {
+            if (!localStorage.getItem('hasVisited')) {
+                welcomePopup.classList.add('show');
+                document.body.classList.add('no-scroll');
+                localStorage.setItem('hasVisited', 'true');
             }
         }
 
-        // --- Generate Welcome Message ---
-        async function generateWelcomeMessage() {
+        // --- Gemini API Call Function ---
+        async function callGemini(prompt) {
             try {
-                const prompt = "Write a short, warm, and creative welcome message for a photography portfolio website. Mention the beauty of architecture and landscapes. Keep it under 20 words.";
-                const message = await callGemini(prompt);
-                welcomeToast.textContent = message;
-                welcomeToast.classList.add('show');
-                setTimeout(() => {
-                    welcomeToast.classList.remove('show');
-                }, 5000);
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // API key is handled by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("API Error Response:", errorBody);
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Invalid response structure from Gemini API:", result);
+                    if (result.promptFeedback && result.promptFeedback.blockReason) {
+                         throw new Error(`Request blocked: ${result.promptFeedback.blockReason}`);
+                    }
+                    throw new Error("No content generated or invalid response structure.");
+                }
             } catch (error) {
-                console.error("Failed to generate welcome message:", error);
+                console.error("Error in callGemini:", error);
+                throw error; // Re-throw the error to be caught by the calling function
             }
         }
 
@@ -527,7 +609,7 @@
                 const card = document.createElement('div');
                 card.className = 'photo-card';
                 
-                let photoTitle = photo.description || photo.alt_description || 'Untitled';
+                let photoTitle = photo.description || 'Untitled';
                 
                 card.innerHTML = `
                     <img src="${photo.urls.regular}" alt="${photo.alt_description || 'Photograph'}" loading="lazy">
@@ -546,9 +628,9 @@
                     const titleElement = card.querySelector('.photo-title');
                     titleElement.textContent = 'Generating title...';
                     try {
-                        const prompt = `Generate a short, creative title (2-4 words) for a photograph described as: "${photo.alt_description}".`;
+                        const prompt = `Generate a short, creative title (2-4 words) for a photograph described as: "${photo.alt_description}". Do not include quotation marks in your response.`;
                         const newTitle = await callGemini(prompt);
-                        titleElement.textContent = newTitle.replace(/"/g, ''); // Remove quotes from Gemini response
+                        titleElement.textContent = newTitle.replace(/"/g, ''); // Remove quotes just in case
                     } catch (e) {
                         console.error("Failed to generate title:", e);
                         titleElement.textContent = 'Untitled'; // Fallback
@@ -588,7 +670,9 @@
             const fullImage = new Image();
             fullImage.src = photo.urls.full;
             fullImage.onload = () => {
-                lightboxImg.src = fullImage.src;
+                if(lightbox.classList.contains('active')) { // Only update if the lightbox is still open
+                    lightboxImg.src = fullImage.src;
+                }
             };
         }
 
@@ -636,11 +720,12 @@
 
         // Initial Load
         document.addEventListener('DOMContentLoaded', async () => {
+            showWelcomePopup();
             await fetchPhotographerInfo();
             await fetchPhotos(currentPage);
             handleNavHighlighting();
-            generateWelcomeMessage();
         });
     </script>
 </body>
 </html>
+
