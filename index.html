@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prasun Mishra | Architectural & Landscape Photography</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore the architectural and landscape photography of Prasun Mishra. A portfolio showcasing the intersection of human design and natural beauty through a photographic lens.">
+    <meta name="keywords" content="Prasun Mishra, photography, architectural photography, landscape photography, photographer, India, Unsplash">
+    
+    <!-- Open Graph Meta Tags (for social media sharing) -->
+    <meta property="og:title" content="Prasun Mishra | Architectural & Landscape Photography">
+    <meta property="og:description" content="A portfolio showcasing the intersection of human design and natural beauty.">
+    <meta property="og:image" content="https://prasun01.github.io/myimage.jpg">
+    <meta property="og:url" content="https://prasun01.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Prasun Mishra | Architectural & Landscape Photography">
+    <meta name="twitter:description" content="A portfolio showcasing the intersection of human design and natural beauty.">
+    <meta name="twitter:image" content="https://prasun01.github.io/myimage.jpg">
+
+    <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -11,7 +30,7 @@
       "name": "Prasun Mishra",
       "alternateName": "shotbyprasun",
       "url": "https://prasun01.github.io/",
-      "image": "https://prasun01.github.io/your-photo.jpg",
+      "image": "https://prasun01.github.io/myimage.jpg",
       "jobTitle": "Photographer & CGI Artist",
       "description": "Prasun Mishra is a photographer and CGI artist from India, exploring visuals through lens and pixels.",
       "nationality": "Indian",
@@ -23,7 +42,7 @@
         "https://unsplash.com/@prasunmishra1",
         "https://www.instagram.com/shotbyprasun",
         "https://github.com/Prasun01",
-        "https://prasun01.github.io/"
+        "https://www.pinterest.com/your_pinterest_username/"
       ]
     }
     </script>
@@ -39,16 +58,8 @@
             --border-color: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--primary-bg);
@@ -65,269 +76,165 @@
 
         /* Navigation */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
             background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: all 0.3s ease;
+            z-index: 1000; transition: all 0.3s ease;
         }
-
         .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
+            max-width: 1600px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center; height: 70px;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: -0.05em;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
+        .logo { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.05em; }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; }
         .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            color: var(--text-secondary); text-decoration: none;
+            font-weight: 500; font-size: 0.9rem; transition: color 0.3s ease;
         }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--text-primary);
-        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
-            background: radial-gradient(circle, #1a1a1a 0%, var(--primary-bg) 70%);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 0 2rem; background: radial-gradient(circle, #1a1a1a 0%, var(--primary-bg) 70%);
         }
-
-        .hero-content {
-            animation: fadeInDown 1s ease-out;
-        }
-
+        .hero-content { animation: fadeInDown 1s ease-out; }
         .hero h1 {
-            font-size: clamp(3.5rem, 10vw, 7rem);
-            font-weight: 600;
-            letter-spacing: -0.05em;
-            margin-bottom: 1rem;
+            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 600;
+            letter-spacing: -0.05em; margin-bottom: 1rem;
             background: -webkit-linear-gradient(45deg, #eee, #777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
         .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            font-weight: 300;
+            font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--text-secondary);
+            max-width: 700px; margin: 0 auto 2.5rem; font-weight: 300;
         }
-
         .cta-button {
-            display: inline-block;
-            padding: 0.9rem 2.2rem;
-            background: var(--accent-color);
-            border: 1px solid var(--accent-color);
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-radius: 50px;
+            display: inline-block; padding: 0.9rem 2.2rem; background: var(--accent-color);
+            border: 1px solid var(--accent-color); color: #fff; text-decoration: none;
+            font-size: 1rem; font-weight: 500; transition: all 0.3s ease; border-radius: 50px;
         }
-
-        .cta-button:hover {
-            background: transparent;
-            color: var(--accent-color);
-            transform: translateY(-3px);
-        }
+        .cta-button:hover { background: transparent; color: var(--accent-color); transform: translateY(-3px); }
         
         /* Portfolio Section */
-        .portfolio {
-            padding: 6rem 2rem;
-            max-width: 1800px;
-            margin: 0 auto;
-        }
-
+        .portfolio { padding: 6rem 2rem; max-width: 1800px; margin: 0 auto; }
         .section-header {
-            max-width: 700px;
-            margin: 0 auto 4rem;
-            text-align: center;
+            max-width: 700px; margin: 0 auto 4rem; text-align: center;
             animation: fadeInUp 1s ease-out;
         }
-
         .section-title {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 600;
-            letter-spacing: -0.04em;
-            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 600;
+            letter-spacing: -0.04em; margin-bottom: 1rem;
         }
         
         /* Photo Grid */
-        .photo-grid {
-            columns: 4;
-            column-gap: 1.5rem;
-        }
-
+        .photo-grid { columns: 4; column-gap: 1.5rem; }
         .photo-card {
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-            break-inside: avoid;
-            animation: fadeInUp 0.5s ease-out;
+            margin-bottom: 1.5rem; position: relative; overflow: hidden;
+            border-radius: 8px; break-inside: avoid; animation: fadeInUp 0.5s ease-out;
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        
-        .photo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
+        .photo-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         .photo-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.4s ease;
+            width: 100%; height: auto; display: block; object-fit: cover;
+            transition: transform 0.4s ease; cursor: pointer;
         }
-        
-        .photo-card:hover img {
-            transform: scale(1.05);
-        }
-
+        .photo-card:hover img { transform: scale(1.05); }
         .photo-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: #fff;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: #fff;
+            transform: translateY(100%); transition: transform 0.4s ease;
         }
-
-        .photo-card:hover .photo-overlay {
-            transform: translateY(0);
-        }
-        
-        .photo-title {
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
+        .photo-card:hover .photo-overlay { transform: translateY(0); }
+        .photo-title { font-weight: 500; margin-bottom: 0.25rem; }
         .photo-stats {
-            font-size: 0.8rem;
-            opacity: 0.8;
+            font-size: 0.8rem; opacity: 0.8; display: flex;
+            justify-content: space-between; align-items: center;
         }
+        .gemini-btn {
+            background: rgba(255, 255, 255, 0.2); border: none; color: #fff;
+            padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer;
+            font-size: 0.75rem; transition: background 0.3s;
+        }
+        .gemini-btn:hover { background: rgba(255, 255, 255, 0.4); }
 
         /* Load More */
-        #load-more-container {
-            text-align: center;
-            margin-top: 4rem;
-        }
-        
+        #load-more-container { text-align: center; margin-top: 4rem; }
         #load-more {
-            padding: 0.8rem 2rem;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 50px;
+            padding: 0.8rem 2rem; background: transparent; border: 1px solid var(--border-color);
+            color: var(--text-primary); font-size: 1rem; cursor: pointer;
+            transition: all 0.3s ease; border-radius: 50px;
         }
+        #load-more:hover { background: var(--accent-color); border-color: var(--accent-color); color: #fff; }
+        #load-more:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        #load-more:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-            color: #fff;
+        /* About Section */
+        .about { padding: 6rem 2rem; background: var(--secondary-bg); }
+        .about-container {
+            max-width: 1200px; margin: 0 auto; display: grid;
+            grid-template-columns: 1fr 2fr; align-items: center; gap: 4rem;
         }
-
-        #load-more:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .about-image img {
+            width: 100%; border-radius: 8px; max-width: 300px;
+            margin: 0 auto; display: block;
         }
+        .about-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 600; }
+        .about-text p { color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; }
+        .contact-links {
+            display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+        }
+        .contact-link {
+            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1.5rem;
+            background: var(--primary-bg); border: 1px solid var(--border-color);
+            color: var(--text-secondary); text-decoration: none; font-size: 1rem;
+            font-weight: 500; border-radius: 8px; transition: all 0.3s ease;
+        }
+        .contact-link:hover {
+            color: var(--text-primary); background: #2a2a2a; transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .contact-link svg { width: 24px; height: 24px; fill: currentColor; }
+        .coffee-button {
+            display: inline-block; padding: 1rem 2.5rem; background: #FFDD00;
+            color: #000; text-decoration: none; font-weight: 600;
+            border-radius: 50px; transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .coffee-button:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        /* Lightbox */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
+        /* Lightbox & Modal */
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); display: flex; justify-content: center;
+            align-items: center; z-index: 2000; opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        .lightbox-content img { max-width: 90vw; max-height: 80vh; object-fit: contain; }
+        .modal-close {
+            position: absolute; top: 2rem; right: 2rem; font-size: 2.5rem;
+            color: #fff; cursor: pointer; opacity: 0.8; transition: opacity 0.3s;
         }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            object-fit: contain;
+        .modal-close:hover{ opacity: 1; }
+        .gemini-modal-content {
+            background: var(--secondary-bg); padding: 2rem; border-radius: 8px;
+            max-width: 500px; width: 90%; text-align: center; position: relative;
         }
-
-        .lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2.5rem;
-            color: #fff;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        .lightbox-close:hover{
-            opacity: 1;
-        }
+        .gemini-modal-content h3 { margin-bottom: 1rem; }
+        #gemini-caption { min-height: 100px; color: var(--text-secondary); font-style: italic; }
 
         /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Responsive */
         @media (max-width: 1200px) { .photo-grid { columns: 3; } }
-        @media (max-width: 768px) { .photo-grid { columns: 2; } }
+        @media (max-width: 768px) {
+            .photo-grid { columns: 2; }
+            .about-container { grid-template-columns: 1fr; text-align: center; }
+            .contact-links { justify-content: center; }
+        }
         @media (max-width: 480px) { .photo-grid { columns: 1; } }
 
     </style>
@@ -339,6 +246,7 @@
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
         </div>
     </nav>
@@ -356,7 +264,6 @@
             <div class="section-header">
                 <h2 class="section-title">Gallery</h2>
             </div>
-            
             <div id="photos-container">
                 <div class="photo-grid" id="photo-grid"></div>
                 <div id="load-more-container">
@@ -364,23 +271,69 @@
                 </div>
             </div>
         </section>
+
+        <section id="about" class="about">
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="myimage.jpg" alt="A photo of Prasun Mishra">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Prasun Mishra is a photographer and CGI artist based in India with a passion for capturing the intersection of human design and the natural world. His work seeks to find the harmony and tension between architectural forms and their surrounding landscapes, telling stories through light, shadow, and composition.</p>
+                    <div class="contact-links">
+                        <a href="https://www.instagram.com/shotbyprasun" target="_blank" class="contact-link">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Instagram</title><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.314.935 20.644.523 19.86.217c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.488.96-.908 1.381-.419.419-.824.68-1.392.896-.42.165-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.488-1.379-.908-.42-.419-.68-.824-.9-1.392-.165-.42-.36-1.065-.42-2.235-.057-1.274-.07-1.649-.07-4.859 0-3.211.015-3.586.07-4.859.061-1.171.255-1.816.42-2.236.224-.569.48-1.028.9-1.448.42-.419.825-.68 1.392-.9.42-.165 1.065-.36 2.235-.42C8.414 2.18 8.79 2.16 12 2.16zm0 9.04c-2.12 0-3.84 1.72-3.84 3.84s1.72 3.84 3.84 3.84 3.84-1.72 3.84-3.84-1.72-3.84-3.84-3.84zM12 18c-1.21 0-2.16-.95-2.16-2.16s.95-2.16 2.16-2.16 2.16.95 2.16 2.16-.95 2.16-2.16 2.16zm6.36-10.86c-.795 0-1.44.645-1.44 1.44s.645 1.44 1.44 1.44 1.44-.645 1.44-1.44-.645-1.44-1.44-1.44z"/></svg>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://unsplash.com/@prasunmishra1" target="_blank" class="contact-link">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Unsplash</title><path d="M7.5 6.75V0H0v6.75h7.5zm9 0V0h-7.5v6.75h7.5zM24 17.25v6.75H0v-6.75h24zM16.5 9.75h-9V15h9V9.75z"/></svg>
+                            <span>Unsplash</span>
+                        </a>
+                        <a href="mailto:your.email@example.com" class="contact-link">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Email</title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.79L12 8.995l-6.545 2.795v9.205H1.636C.732 21 0 20.268 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 7.956l6.545-3.315 1.528-1.145C21.691 2.28 24 3.434 24 5.457z"/></svg>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                     <a href="https://www.buymeacoffee.com/yourusername" target="_blank" class="coffee-button">
+                        Buy Me a Coffee ☕
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img src="" alt="Enlarged view" id="lightbox-img">
+    <div class="modal-backdrop" id="lightbox">
+        <span class="modal-close">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="Enlarged view" id="lightbox-img">
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="gemini-modal">
+        <span class="modal-close">&times;</span>
+        <div class="gemini-modal-content">
+            <h3>✨ AI Generated Caption</h3>
+            <p id="gemini-caption">Generating a creative caption for you...</p>
+        </div>
     </div>
 
     <script>
+        // --- SCRIPT REMAINS THE SAME ---
         const UNSPLASH_API_KEY = 'SDwBRYYlKBUQSdu0KY4Cnh207nc8pFWHhHs_jxd0LnE';
         const UNSPLASH_USERNAME = 'Prasunmishra1';
         const PHOTOS_PER_PAGE = 20;
 
         const photoGrid = document.getElementById('photo-grid');
         const loadMoreBtn = document.getElementById('load-more');
+        
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        const geminiModal = document.getElementById('gemini-modal');
+        const geminiCaption = document.getElementById('gemini-caption');
+        
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
 
         let currentPage = 1;
         let totalPhotos = 0;
@@ -414,7 +367,7 @@
                 displayPhotos(photos);
                 loadedPhotos += photos.length;
 
-                if (loadedPhotos >= totalPhotos) {
+                if (loadedPhotos >= totalPhotos || photos.length < PHOTOS_PER_PAGE) {
                     loadMoreBtn.style.display = 'none';
                 }
 
@@ -435,29 +388,87 @@
                 const photoTitle = photo.description || photo.alt_description || 'Untitled';
                 
                 card.innerHTML = `
-                    <img src="${photo.urls.regular}" alt="${photoTitle}" loading="lazy">
+                    <img src="${photo.urls.regular}" alt="${photoTitle}" loading="lazy" data-full-url="${photo.urls.full}">
                     <div class="photo-overlay">
                         <h3 class="photo-title">${photoTitle.substring(0, 50)}</h3>
                         <div class="photo-stats">
                             <span>♥ ${photo.likes}</span>
+                            <button class="gemini-btn" data-description="${photoTitle}">✨ Get Caption</button>
                         </div>
                     </div>
                 `;
                 
-                card.addEventListener('click', () => openLightbox(photo.urls.full, photoTitle));
+                card.querySelector('img').addEventListener('click', () => openLightbox(photo.urls.full, photoTitle));
+                card.querySelector('.gemini-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleCaptionGeneration(photoTitle);
+                });
                 photoGrid.appendChild(card);
             });
         }
         
+        async function handleCaptionGeneration(description) {
+            geminiCaption.textContent = 'Generating a creative caption for you...';
+            geminiModal.classList.add('active');
+
+            const prompt = `Write a short, poetic, and evocative caption for a photograph described as: "${description}". Keep it under 25 words.`;
+
+            try {
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    geminiCaption.textContent = text;
+                } else {
+                    throw new Error("No caption generated.");
+                }
+
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                geminiCaption.textContent = 'Sorry, I couldn\'t generate a caption right now. Please try again later.';
+            }
+        }
+
         function openLightbox(imageUrl, altText) {
             lightboxImg.src = imageUrl;
             lightboxImg.alt = altText;
             lightbox.classList.add('active');
         }
 
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            lightboxImg.src = ''; // To stop loading if lightbox is closed quickly
+        function closeModal(modal) {
+            modal.classList.remove('active');
+        }
+        
+        function handleNavHighlighting() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 75) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         }
 
         loadMoreBtn.addEventListener('click', () => {
@@ -465,19 +476,29 @@
             fetchPhotos(currentPage);
         });
         
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                closeModal(e.target.closest('.modal-backdrop'));
+            });
         });
+
+        document.querySelectorAll('.modal-backdrop').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+        
+        window.addEventListener('scroll', handleNavHighlighting);
 
         // Initial Load
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchPhotographerInfo();
             await fetchPhotos(currentPage);
+            handleNavHighlighting();
         });
-
     </script>
 </body>
 </html>
+
