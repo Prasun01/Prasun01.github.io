@@ -3,492 +3,652 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prasun Mishra | Photography</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore the architectural and landscape photography of Prasun Mishra. A portfolio showcasing the intersection of human design and natural beauty through a photographic lens.">
-    <meta name="keywords" content="Prasun Mishra, photography, architectural photography, landscape photography, photographer, India, Unsplash">
+    <title>Prasun Mishra | The Canvas</title>
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Prasun Mishra | Photography">
-    <meta property="og:description" content="A portfolio showcasing the intersection of human design and natural beauty.">
-    <meta property="og:image" content="https://prasun01.github.io/logo-preview.png">
-    <meta property="og:url" content="https://prasun01.github.io/">
-    <meta property="og:type" content="website">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Syne (Artistic) & Manrope (Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Prasun Mishra | Photography">
-    <meta name="twitter:description" content="A portfolio showcasing the intersection of human design and natural beauty.">
-    <meta name="twitter:image" content="https://prasun01.github.io/logo-preview.png">
+    <!-- GSAP & Lenis (Stable UMD Build) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 
-    <!-- Structured Data (Schema.org) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Prasun Mishra",
-      "url": "https://prasun01.github.io/",
-      "sameAs": [
-        "https://unsplash.com/@prasunmishra1",
-        "https://www.instagram.com/shotbyprasun"
-      ]
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        gallery: '#f4f4f0', /* Warm off-white */
+                        ink: '#111111',
+                        accent: '#ff3333',
+                    },
+                    cursor: {
+                        none: 'none',
+                    }
+                }
+            }
+        }
     </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-            --text-secondary-color: #888888;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background-color: #f4f4f0;
+            color: #111111;
+            overflow-x: hidden;
+            /* Hide system cursor only on desktop to allow custom cursor */
+            cursor: none; 
         }
 
-        /* Main Layout */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            min-height: 100vh;
+        /* Fallback: If no mouse, show system cursor */
+        @media (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+            #cursor, #cursor-text {
+                display: none !important;
+            }
         }
 
-        /* Left Column / Sidebar */
-        .sidebar {
-            padding: 40px;
-            border-right: 1px solid #222;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        /* --- Liquid Distortion SVG Filter --- */
+        .liquid-img-container {
+            overflow: hidden;
+            position: relative;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            background-color: #e5e5e5;
         }
-        .sidebar-header .brand {
-            font-weight: 600;
-            font-size: 16px;
-            text-decoration: none;
-            color: var(--text-color);
-            display: block;
+        
+        .distort-img {
+            filter: url('#liquidFilter'); 
+            transform: scale(1.05); 
+            transition: transform 0.8s ease, opacity 0.5s ease;
+            opacity: 0; 
         }
-        .main-nav {
-            margin-top: 60px;
-        }
-        .main-nav ul {
-            list-style: none;
-        }
-        .main-nav li {
-            margin-bottom: 16px;
-        }
-        .main-nav a {
-            font-size: 14px;
-            color: var(--text-secondary-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .main-nav a:hover, .main-nav a.active {
-            color: var(--text-color);
-        }
-        .sidebar-footer {
-            font-size: 12px;
-            color: var(--text-secondary-color);
-        }
-
-        /* Right Column / Content */
-        .content-area {
-            padding: 40px;
-        }
-
-        .hero {
-            margin-bottom: 80px;
-        }
-        .hero-title {
-            font-size: clamp(4rem, 12vw, 10rem);
-            font-weight: 600;
-            line-height: 0.9;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-        }
-
-        /* Photo Feed */
-        .photo-feed {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 120px;
-        }
-        .photo-entry {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .photo-entry.is-visible {
+        .distort-img.loaded {
             opacity: 1;
-            transform: translateY(0);
         }
-        .photo-entry.text-right .photo-image { grid-column: 1; }
-        .photo-entry.text-right .photo-details { grid-column: 2; padding-left: 20%; }
-        .photo-entry.text-left .photo-image { grid-column: 2; }
-        .photo-entry.text-left .photo-details { grid-column: 1; padding-right: 20%; }
 
-        .photo-image {
+        /* --- Custom Cursor (Negative Space Orb) --- */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 14px;
+            height: 14px;
+            /* Solid white circle that inverts background */
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            opacity: 0; /* Hidden until movement */
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Removed the inner dot ::after for a cleaner look */
+
+        #cursor-text {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            font-family: 'Manrope', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            /* Text color matches background so difference mode makes it visible inside the white orb */
+            color: black; 
+            mix-blend-mode: normal; /* Text sits on top */
+            width: 100px;
+            text-align: center;
+            margin-left: -50px; 
+            margin-top: -7px; /* Absolute center */
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        body.hovering #cursor-text {
+            opacity: 1;
+        }
+
+        /* --- Layout Utilities --- */
+        .big-text {
+            font-size: clamp(3.5rem, 14vw, 12rem);
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+        }
+        
+        .line-mask {
             overflow: hidden;
         }
-        .photo-image img {
-            width: 100%;
+        .line-mask span {
             display: block;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.6s ease;
-            filter: grayscale(100%);
-        }
-        .photo-image:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
+            transform: translateY(100%);
         }
 
-        .photo-details h2 {
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 12px;
+        .grid-line {
+            position: fixed;
+            background-color: rgba(0,0,0,0.05);
+            z-index: -1;
         }
-        .photo-details p {
-            font-size: 14px;
-            color: var(--text-secondary-color);
-            margin-bottom: 20px;
-        }
-        .photo-details a {
-            font-size: 14px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-bottom: 1px solid #555;
-            padding-bottom: 2px;
-            transition: border-color 0.3s;
-        }
-        .photo-details a:hover {
-            border-color: var(--text-color);
-        }
+        .vert { top: 0; bottom: 0; width: 1px; }
+        .horiz { left: 0; right: 0; height: 1px; }
 
-        /* About & Contact Pages */
-        .about-section, .contact-section {
-            padding-top: 80px;
-            max-width: 600px;
-        }
-        .about-image img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 32px;
-        }
-        .about-section h2, .contact-section h2 {
-            font-size: 48px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        .about-section p, .contact-section p {
-            color: var(--text-secondary-color);
-            margin-bottom: 32px;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-        .contact-links ul {
-            list-style: none;
-            margin-bottom: 32px;
-        }
-        .contact-links li {
-            margin-bottom: 12px;
-        }
-        .contact-links a {
-            font-size: 16px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-bottom: 1px solid #555;
-            padding-bottom: 2px;
-            transition: border-color 0.3s;
-        }
-        .contact-links a:hover {
-            border-color: var(--text-color);
-        }
-
-        /* Subscribe Form */
-        .subscribe-form {
-            margin-top: 48px;
-        }
-        .subscribe-form h3 {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .subscribe-input {
-            width: 100%;
-            max-width: 400px;
-            background: #111;
-            border: 1px solid #333;
-            color: var(--text-color);
-            padding: 12px 16px;
-            font-size: 14px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-        }
-        .subscribe-btn {
-            background: var(--text-color);
-            color: var(--bg-color);
-            border: none;
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: opacity 0.3s;
-        }
-        .subscribe-btn:hover {
-            opacity: 0.8;
-        }
-        #form-message {
-            font-size: 13px;
-            color: var(--text-secondary-color);
-            margin-top: 12px;
-            min-height: 18px;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-            .sidebar {
-                position: relative;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid #222;
-            }
-            .photo-entry, .photo-entry.text-left, .photo-entry.text-right {
-                grid-template-columns: 1fr;
-            }
-            .photo-entry .photo-image, .photo-entry.text-left .photo-image, .photo-entry.text-right .photo-image {
-                grid-column: 1;
-                margin-bottom: 24px;
-            }
-            .photo-entry .photo-details, .photo-entry.text-left .photo-details, .photo-entry.text-right .photo-details {
-                grid-column: 1;
-                padding: 0;
-            }
-        }
-        @media (max-width: 576px) {
-            .sidebar, .content-area {
-                padding: 24px;
-            }
+        .panel-transition {
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
         }
     </style>
 </head>
-<body>
-    <div class="main-grid">
-        <aside class="sidebar">
-            <div>
-                <div class="sidebar-header">
-                    <a href="#" class="brand">
-                        <svg height="32" viewBox="0 0 100 50" fill="white" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M20 0H0V50H20V27H35C43.2843 27 50 20.2843 50 12C50 3.71573 43.2843 0 35 0H20ZM20 10V17H35C38.3137 17 41 14.3137 41 11C41 7.68629 38.3137 5 35 5H20V10Z"/>
-                          <path d="M55 0H72.5L81 25L89.5 0H100V50H89.5V15L81 40L72.5 15V50H55V0Z"/>
-                        </svg>
-                    </a>
-                </div>
-                 <nav class="main-nav">
-                    <ul>
-                        <li><a href="#portfolio" class="active">Portfolio</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
+<body class="antialiased opacity-0 transition-opacity duration-1000 ease-out" onload="document.body.classList.remove('opacity-0')">
+
+    <!-- SVG Filter Definition -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="liquidFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.00" numOctaves="1" result="warp" />
+                <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Cursor Elements -->
+    <div id="cursor"></div>
+    <div id="cursor-text">View</div>
+
+    <!-- Grid Lines -->
+    <div class="grid-line vert left-[15%]"></div>
+    <div class="grid-line vert right-[15%]"></div>
+    <div class="grid-line vert left-[50%] hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full px-6 md:px-8 py-6 md:py-8 flex justify-between items-start z-50 mix-blend-difference text-gallery">
+        <div class="flex flex-col">
+            <a href="#" class="font-display font-bold text-lg uppercase tracking-wide cursor-trigger">Prasun.</a>
+            <span class="font-sans text-xs tracking-widest opacity-60">Est. 2026</span>
+        </div>
+        <div class="flex flex-col items-end gap-1">
+            <button id="menu-btn" class="font-sans text-xs uppercase font-bold tracking-widest hover:line-through cursor-trigger p-2 -mr-2">About</button>
+        </div>
+    </nav>
+
+    <!-- ABOUT SIDE PANEL -->
+    <div id="about-panel" class="fixed top-0 right-0 w-full md:w-1/2 h-full bg-[#111] text-[#f4f4f0] z-[100] transform translate-x-full panel-transition p-8 md:p-16 flex flex-col justify-between overflow-y-auto">
+        
+        <div class="flex justify-between items-start mb-8">
+            <span class="font-display text-xl font-bold">About</span>
+            <button id="close-about" class="font-sans text-xs uppercase tracking-widest hover:line-through cursor-trigger p-2 -mr-2">Close</button>
+        </div>
+
+        <div class="space-y-6 md:space-y-8 mt-4 md:mt-0">
+            <!-- PROFILE IMAGE ADDED HERE -->
+            <div class="w-32 h-32 md:w-48 md:h-48 overflow-hidden rounded-full mb-4 border border-white/10 relative group">
+                <img src="./myimage.jpg" alt="Prasun Mishra" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <!-- Subtle inner shadow/glint -->
+                <div class="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10"></div>
             </div>
-            <div class="sidebar-footer">
-                <p>&copy; 2025</p>
+
+            <h2 class="font-display text-3xl md:text-5xl font-bold leading-tight">
+                Structural Geometry<br>
+                & Organic Chaos.
+            </h2>
+            <div class="max-w-md space-y-6 font-sans text-sm opacity-90 leading-relaxed">
+                <p>
+                    Prasun Mishra is a visual artist based in India, specializing in the juxtaposition of brutalist architectural geometry and the fluid chaos of natural landscapes.
+                </p>
+                <p>
+                    His photography isolates the silent, overlooked details of the world—the sharp edge of a building against the sky, or the soft texture of mist in a forest. By stripping away the visual noise, he reveals a minimalist narrative where architecture and nature exist in a delicate, high-contrast balance.
+                </p>
+                <p>
+                    His style is defined by clean lines, negative space, and a desaturated palette that emphasizes texture over color.
+                </p>
             </div>
-        </aside>
+        </div>
 
-        <main class="content-area">
-            <section id="portfolio" class="hero">
-                <h1 class="hero-title">Brutalist</h1>
-            </section>
-            <section class="photo-feed">
-                <!-- Photos will be dynamically inserted here -->
-            </section>
-            
-            <section id="about" class="about-section">
-                <div class="about-image">
-                    <img src="myimage.jpg" alt="A photo of Prasun Mishra">
-                </div>
-                <div class="about-text">
-                    <h2>Prasun Mishra</h2>
-                    <p>
-                        A photographer and CGI artist based in India with a passion for capturing the intersection of human design and the natural world. My work seeks to find the harmony and tension between architectural forms and their surrounding landscapes, telling stories through light, shadow, and composition.
-                    </p>
-                    <p>
-                        This collection is a study in form, material, and the quiet moments where structure meets environment.
-                    </p>
-                </div>
-            </section>
-
-            <section id="contact" class="contact-section">
-                <h2>Get in Touch</h2>
-                <p>For inquiries, collaborations, or to say hello, please use the links below. Subscribe to get notified when new work is published.</p>
-                
-                <div class="contact-links">
-                    <ul>
-                        <li><a href="https://www.instagram.com/shotbyprasun" target="_blank">Instagram</a></li>
-                        <li><a href="https://unsplash.com/@prasunmishra1" target="_blank">Unsplash</a></li>
-                        <li><a href="#">Hire Me</a></li>
-                    </ul>
-                </div>
-
-                <h3>Subscribe</h3>
-                <form class="subscribe-form" id="subscribe-form">
-                    <input type="email" id="email-input" class="subscribe-input" placeholder="Email Address" required>
-                    <button type="submit" class="subscribe-btn">Get Notified</button>
-                    <p id="form-message"></p>
-                </form>
-            </section>
-        </main>
+        <div class="grid grid-cols-2 gap-8 border-t border-white/20 pt-8 pb-8 md:pb-0 mt-8">
+            <div class="flex flex-col gap-2">
+                <span class="text-xs uppercase tracking-widest opacity-50">Socials</span>
+                <a href="https://unsplash.com/@prasunmishra1" target="_blank" class="font-display text-lg hover:text-gray-400 transition-colors cursor-trigger">Unsplash</a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <span class="text-xs uppercase tracking-widest opacity-50">Contact</span>
+                <a href="mailto:Prasunmishra910@gmail.com" class="font-display text-lg hover:text-gray-400 transition-colors cursor-trigger break-all">Prasunmishra910@gmail.com</a>
+                <span class="font-sans text-sm opacity-50 mt-2">Not Available for Hire</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const subscribeForm = document.getElementById('subscribe-form');
-        const emailInput = document.getElementById('email-input');
-        const formMessage = document.getElementById('form-message');
-        subscribeForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = emailInput.value;
-            formMessage.textContent = 'Subscribing...';
-            try {
-                await addDoc(collection(db, "subscribers"), {
-                    email: email,
-                    subscribedAt: new Date()
-                });
-                formMessage.textContent = 'Success! You are subscribed.';
-                emailInput.value = '';
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                formMessage.textContent = 'Error. Please try again.';
-            }
-        });
-    </script>
-
-    <script>
-        // --- Unsplash and Animation Logic ---
-        const UNSPLASH_API_KEY = 'SDwBRYYlKBUQSdu0KY4Cnh207nc8pFWHhHs_jxd0LnE';
-        const UNSPLASH_USERNAME = 'Prasunmishra1';
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="fixed inset-0 z-[110] bg-black/95 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 ease-out">
+        <button id="close-lightbox" class="absolute top-6 right-6 md:top-8 md:right-8 text-white font-sans text-xs uppercase tracking-widest hover:line-through cursor-trigger z-50 p-4">Close View</button>
         
-        const photoFeed = document.querySelector('.photo-feed');
+        <div class="relative w-full h-full p-4 md:p-12 flex flex-col items-center justify-center">
+            <img id="lb-img" src="" class="max-w-full max-h-[70vh] md:max-h-[85vh] object-contain shadow-2xl" alt="Full Screen View">
+            <h3 id="lb-title" class="text-white font-display text-xl md:text-2xl mt-6 uppercase text-center"></h3>
+        </div>
+    </div>
 
-        function createPhotoEntryHTML(photo, index) {
-            if (!photo) return '';
-            const title = photo.description || photo.alt_description || 'Untitled';
-            const camera = (photo.exif && photo.exif.name) ? photo.exif.name : 'Canon EOS';
-            const layoutClass = index % 2 === 0 ? 'text-right' : 'text-left';
-            const unsplashUrl = photo.links ? photo.links.html : `https://unsplash.com/photos/${photo.id}`;
 
-            return `
-                <div class="photo-entry ${layoutClass}">
-                    <div class="photo-image">
-                        <img src="${photo.urls.regular}" alt="${title}">
+    <main id="main-content">
+        
+        <!-- HERO SECTION -->
+        <section class="min-h-screen w-full flex flex-col justify-center px-6 md:px-[15%] pt-32 pb-20 relative">
+            <div class="mb-12">
+                <h1 class="font-display font-extrabold big-text uppercase text-ink">
+                    <div class="line-mask"><span class="hero-anim">Visual</span></div>
+                    <div class="line-mask"><span class="hero-anim ml-[10%] text-gray-400">Poetry</span></div>
+                    <div class="line-mask"><span class="hero-anim">Archive</span></div>
+                </h1>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 mt-4 md:mt-12 border-t border-black/10 pt-8">
+                <div class="max-w-xs">
+                    <p class="font-sans text-sm font-medium leading-relaxed opacity-0 hero-fade">
+                        Prasun Mishra is an interdisciplinary photographer exploring the silence of architecture and the noise of nature.
+                    </p>
+                </div>
+                <div class="flex gap-12 opacity-0 hero-fade w-full md:w-auto">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Location</span>
+                        <span class="font-display text-lg">India</span>
                     </div>
-                    <div class="photo-details">
-                        <h2>${title}</h2>
-                        <p>${camera}</p>
-                        <a href="${unsplashUrl}" target="_blank">View on Unsplash</a>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Focus</span>
+                        <span class="font-display text-lg">Arch / Nature</span>
                     </div>
                 </div>
-            `;
+            </div>
+        </section>
+
+
+        <!-- GALLERY SECTION -->
+        <section class="w-full px-6 md:px-[5%] pb-24 md:pb-40">
+            <div class="flex items-center gap-4 mb-16 md:mb-24 px-0 md:px-[10%]">
+                <div class="h-[1px] w-12 bg-black"></div>
+                <span class="font-sans text-xs uppercase tracking-widest font-bold">Selected Works</span>
+            </div>
+
+            <!-- CURATED SLOTS -->
+            <div class="flex flex-col md:flex-row justify-end items-center mb-24 md:mb-40 relative group work-item">
+                <div class="w-full md:w-auto md:absolute md:left-[15%] md:top-1/2 md:-translate-y-1/2 z-10 mix-blend-difference text-ink md:text-gallery md:text-ink md:mix-blend-normal mb-4 md:mb-0 pointer-events-none">
+                    <h2 class="font-display text-5xl md:text-8xl font-bold uppercase transition-transform duration-500 group-hover:translate-x-4">
+                        Mono<br>lithic
+                    </h2>
+                    <p class="font-sans text-xs uppercase tracking-widest mt-2 md:mt-4 md:ml-2">Architecture /// 01</p>
+                </div>
+                <div class="w-full md:w-[45vw] aspect-[4/5] liquid-img-container cursor-trigger" onclick="openLightbox(this, 'Monolithic')">
+                    <img id="img-slot-1" src="https://images.unsplash.com/photo-1486718448732-480f85c65f81?auto=format&fit=crop&w=1200&q=80" class="distort-img w-full h-full object-cover grayscale md:grayscale group-hover:grayscale-0 transition-all duration-700 loaded">
+                </div>
+            </div>
+
+            <div class="flex flex-col-reverse md:flex-row justify-start items-center mb-24 md:mb-40 relative group work-item">
+                <div class="w-full md:w-[55vw] aspect-[16/9] liquid-img-container cursor-trigger md:ml-[5%]" onclick="openLightbox(this, 'Ethereal Mist')">
+                    <img id="img-slot-2" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80" class="distort-img w-full h-full object-cover grayscale md:grayscale group-hover:grayscale-0 transition-all duration-700 loaded">
+                </div>
+                <div class="w-full md:w-auto md:absolute md:right-[10%] md:top-1/2 md:-translate-y-1/2 z-10 mb-4 md:mb-0 pointer-events-none md:text-right">
+                    <h2 class="font-display text-5xl md:text-8xl font-bold uppercase transition-transform duration-500 group-hover:-translate-x-4">
+                        Ethereal<br>Mist
+                    </h2>
+                    <p class="font-sans text-xs uppercase tracking-widest mt-2 md:mt-4 md:mr-2">Nature /// 02</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mb-24 md:mb-40 relative group work-item">
+                <div class="mb-8 text-center z-10 w-full">
+                    <h2 class="font-display text-5xl md:text-9xl font-bold uppercase">Geometry</h2>
+                </div>
+                <div class="w-full md:w-[30vw] aspect-[3/5] liquid-img-container cursor-trigger" onclick="openLightbox(this, 'Tokyo Geometry')">
+                    <img id="img-slot-3" src="https://images.unsplash.com/photo-1479839672679-a455b1824254?auto=format&fit=crop&w=1000&q=80" class="distort-img w-full h-full object-cover grayscale md:grayscale group-hover:grayscale-0 transition-all duration-700 loaded">
+                </div>
+                <p class="font-sans text-xs uppercase tracking-widest mt-6">Tokyo /// 03</p>
+            </div>
+
+            <div class="w-full mb-12 md:mb-20 relative group work-item">
+                <div class="w-full aspect-[21/9] liquid-img-container cursor-trigger" onclick="openLightbox(this, 'The Deep Ocean')">
+                    <img id="img-slot-4" src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2000&q=80" class="distort-img w-full h-full object-cover grayscale md:grayscale group-hover:grayscale-0 transition-all duration-700 loaded">
+                </div>
+                <div class="absolute bottom-4 left-4 md:bottom-8 md:left-8 text-white mix-blend-difference pointer-events-none">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold uppercase">The Deep</h2>
+                </div>
+            </div>
+            
+            <div id="more-works-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20 mt-32 px-4 md:px-[10%] hidden">
+                <!-- Dynamic Content -->
+            </div>
+
+            <div class="flex justify-center mt-32">
+                <button id="load-more-btn" class="group relative overflow-hidden px-8 py-4 bg-[#111] text-[#f4f4f0] font-sans text-xs uppercase tracking-widest cursor-trigger hidden">
+                    <span class="relative z-10 group-hover:text-[#111] transition-colors duration-300">View Archive</span>
+                    <div class="absolute inset-0 bg-gallery transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <section class="h-[70vh] bg-[#111] text-gallery flex flex-col justify-between p-8 md:p-16 relative overflow-hidden">
+            <div class="flex justify-between w-full z-10">
+                <span class="font-display font-bold text-xl">Prasun.</span>
+                <span class="font-sans text-xs uppercase tracking-widest opacity-50 cursor-trigger" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</span>
+            </div>
+
+            <div class="relative z-10">
+                <p class="font-sans text-xs uppercase tracking-widest opacity-50 mb-4">Get in touch</p>
+                <a href="mailto:Prasunmishra910@gmail.com" class="font-display text-[8vw] md:text-[5vw] leading-none font-bold uppercase hover:text-gray-400 transition-colors cursor-trigger">
+                    Prasunmishra910<br>@gmail.com
+                </a>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-end w-full z-10 border-t border-white/20 pt-8 gap-8">
+                <div class="flex gap-4 md:gap-8 font-sans text-sm font-medium">
+                    <a href="https://unsplash.com/@prasunmishra1" class="hover:underline cursor-trigger">Unsplash</a>
+                    <a href="#" class="hover:underline cursor-trigger">LinkedIn</a>
+                </div>
+                <p class="font-sans text-xs opacity-30">© 2026 Prasun Mishra. All rights reserved.</p>
+            </div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] pointer-events-none">
+                <span class="font-display text-[30vw] font-black uppercase">Canvas</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- 0. Unsplash User API Integration ---
+        const UNSPLASH_ACCESS_KEY = 'SDwBRYYlKBUQSdu0KY4Cnh207nc8pFWHhHs_jxd0LnE'; 
+        const UNSPLASH_USERNAME = 'prasunmishra1'; 
+
+        let unusedPhotos = []; 
+
+        function updateSlotImage(id, newUrl) {
+            const imgElement = document.getElementById(id);
+            if (!imgElement) return;
+
+            const tempImg = new Image();
+            tempImg.src = newUrl;
+            
+            tempImg.onload = () => {
+                imgElement.classList.remove('loaded');
+                setTimeout(() => {
+                    imgElement.src = newUrl;
+                    imgElement.classList.add('loaded');
+                }, 500);
+            };
         }
 
-        async function fetchAndDisplayPhotos() {
-            if (!photoFeed) return;
+        async function fetchUserPhotos() {
             try {
-                const response = await fetch(`https://api.unsplash.com/users/${UNSPLASH_USERNAME}/photos?per_page=15&order_by=latest&client_id=${UNSPLASH_API_KEY}`);
-                if (!response.ok) throw new Error('Failed to fetch photos.');
+                const response = await fetch(`https://api.unsplash.com/users/${UNSPLASH_USERNAME}/photos?client_id=${UNSPLASH_ACCESS_KEY}&per_page=12&order_by=latest`);
                 
-                let photos = await response.json();
-                
-                photos.forEach((photo, index) => {
-                    photoFeed.innerHTML += createPhotoEntryHTML(photo, index);
-                });
+                if (response.ok) {
+                    const photos = await response.json();
+                    
+                    if (photos.length === 0) {
+                        console.warn("User has no photos.");
+                        return;
+                    }
 
-                setupAnimations();
+                    let availablePhotos = [...photos];
 
+                    const portraits = availablePhotos.filter(p => p.width < p.height);
+                    const landscapes = availablePhotos.filter(p => p.width >= p.height);
+                    
+                    const usePhoto = (photo) => {
+                        const index = availablePhotos.findIndex(p => p.id === photo.id);
+                        if (index > -1) availablePhotos.splice(index, 1);
+                        return photo.urls.regular;
+                    }
+
+                    // Slot Assignments
+                    if (portraits.length > 0) updateSlotImage('img-slot-1', usePhoto(portraits.shift()));
+                    else if (landscapes.length > 0) updateSlotImage('img-slot-1', usePhoto(landscapes.shift()));
+
+                    if (landscapes.length > 0) updateSlotImage('img-slot-2', usePhoto(landscapes.shift()));
+                    else if (portraits.length > 0) updateSlotImage('img-slot-2', usePhoto(portraits.shift()));
+
+                    if (portraits.length > 0) updateSlotImage('img-slot-3', usePhoto(portraits.shift()));
+                    else if (landscapes.length > 0) updateSlotImage('img-slot-3', usePhoto(landscapes.shift()));
+
+                    if (landscapes.length > 0) updateSlotImage('img-slot-4', usePhoto(landscapes.shift()));
+                    else if (portraits.length > 0) updateSlotImage('img-slot-4', usePhoto(portraits.shift()));
+
+                    unusedPhotos = availablePhotos;
+
+                    if (unusedPhotos.length > 0) {
+                        const loadBtn = document.getElementById('load-more-btn');
+                        loadBtn.classList.remove('hidden');
+                        loadBtn.addEventListener('click', loadMoreWorks);
+                    }
+
+                } else {
+                    console.error("Unsplash API Error:", response.status);
+                }
             } catch (error) {
-                console.error("Error fetching photos:", error);
-                photoFeed.innerHTML = `<p style="text-align:center; color: #888;">Could not load photos.</p>`;
+                console.error("Fetch failed:", error);
             }
         }
 
-        function setupAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+        function loadMoreWorks() {
+            const container = document.getElementById('more-works-container');
+            const btn = document.getElementById('load-more-btn');
+            
+            unusedPhotos.forEach((photo, index) => {
+                const isEven = index % 2 === 0;
+                const marginClass = isEven ? 'md:mt-0' : 'md:mt-24';
+                
+                const html = `
+                    <div class="flex flex-col gap-4 ${marginClass} opacity-0 load-more-item group">
+                        <div class="w-full aspect-[4/5] liquid-img-container cursor-trigger" onclick="openLightbox(this, 'Archive Selection')">
+                            <img src="${photo.urls.regular}" class="distort-img w-full h-full object-cover grayscale md:grayscale group-hover:grayscale-0 transition-all duration-700 loaded">
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-black/10 pb-2">
+                            <span class="font-display uppercase text-lg">Archive 0${index + 5}</span>
+                            <span class="font-sans text-xs text-gray-400">View</span>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
 
-            document.querySelectorAll('.photo-entry:not(.is-visible)').forEach(item => {
-                observer.observe(item);
+            container.classList.remove('hidden');
+            btn.style.display = 'none';
+
+            gsap.to('.load-more-item', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power2.out",
+                onComplete: () => {
+                    initLiquidEffect(document.querySelectorAll('.load-more-item .liquid-img-container'));
+                    if(window.bindCursorTriggers) window.bindCursorTriggers();
+                    ScrollTrigger.refresh();
+                }
             });
         }
+
+        window.addEventListener('load', fetchUserPhotos);
+
+
+        // --- 1. Init Lenis (Stable Check) ---
+        let lenis; 
+        if (typeof Lenis !== 'undefined') {
+            lenis = new Lenis({ duration: 1.2, smooth: true });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+        } else {
+            document.documentElement.style.scrollBehavior = "smooth";
+        }
+
+        // --- 2. GSAP ---
+        gsap.registerPlugin(ScrollTrigger);
         
-        // --- Navigation & Active Link Highlighting ---
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchAndDisplayPhotos();
+        const tl = gsap.timeline({ delay: 0.2 });
+        tl.to(".hero-anim", { y: 0, duration: 1.5, ease: "power4.out", stagger: 0.1 })
+          .to(".hero-fade", { opacity: 1, y: 0, duration: 1, stagger: 0.2 }, "-=1");
 
-            const navLinks = document.querySelectorAll('.main-nav a');
-            const sections = document.querySelectorAll('main section');
+        // --- 3. Liquid Distortion Logic ---
+        function initLiquidEffect(containers) {
+            const turbulence = document.querySelector('feTurbulence');
+            const displacement = document.querySelector('feDisplacementMap');
+            const isDesktop = window.matchMedia("(hover: hover)").matches;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${entry.target.id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, { rootMargin: '-50% 0px -50% 0px' });
-
-            sections.forEach(section => {
-                observer.observe(section);
+            containers.forEach(container => {
+                const img = container.querySelector('img');
+                
+                if (isDesktop) {
+                    container.addEventListener('mouseenter', () => {
+                        gsap.to(turbulence, { attr: { baseFrequency: '0.04' }, duration: 0.5, ease: "power2.out" });
+                        gsap.to(displacement, { attr: { scale: 30 }, duration: 0.5 });
+                        gsap.to(img, { scale: 1.1, duration: 1.5, ease: "power2.out" });
+                    });
+                    container.addEventListener('mouseleave', () => {
+                        gsap.to(turbulence, { attr: { baseFrequency: '0.00' }, duration: 0.8, ease: "power2.inOut" });
+                        gsap.to(displacement, { attr: { scale: 0 }, duration: 0.8 });
+                        gsap.to(img, { scale: 1.05, duration: 1, ease: "power2.out" });
+                    });
+                } else {
+                    ScrollTrigger.create({
+                        trigger: container,
+                        start: "top 70%",
+                        onEnter: () => {
+                            const tlMobile = gsap.timeline();
+                            tlMobile.to(turbulence, { attr: { baseFrequency: '0.02' }, duration: 0.5 })
+                                    .to(displacement, { attr: { scale: 15 }, duration: 0.5 }, "<")
+                                    .to(turbulence, { attr: { baseFrequency: '0.00' }, duration: 1 }, ">")
+                                    .to(displacement, { attr: { scale: 0 }, duration: 1 }, "<");
+                        }
+                    });
+                }
             });
+        }
+        initLiquidEffect(document.querySelectorAll('.liquid-img-container'));
+
+
+        // --- 4. Custom Cursor Logic (Robust) ---
+        const cursor = document.getElementById('cursor');
+        const cursorText = document.getElementById('cursor-text');
+        
+        // Only run logic if elements exist
+        if (cursor && cursorText) {
+            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+            let isMoving = false;
+
+            window.addEventListener('mousemove', (e) => { 
+                mouseX = e.clientX; 
+                mouseY = e.clientY;
+                
+                // Wake up cursor on first move
+                if (!isMoving) {
+                    isMoving = true;
+                    cursor.style.opacity = 1;
+                }
+            });
+
+            // Click Physics
+            window.addEventListener('mousedown', () => {
+                gsap.to(cursor, { scale: 0.8, duration: 0.1, ease: "power2.out" });
+            });
+            window.addEventListener('mouseup', () => {
+                gsap.to(cursor, { scale: 1, duration: 0.3, ease: "elastic.out(1, 0.5)" });
+            });
+
+            // Loop
+            gsap.ticker.add(() => {
+                const dt = 1.0 - Math.pow(1.0 - 0.2, gsap.ticker.deltaRatio());
+                cursorX += (mouseX - cursorX) * dt;
+                cursorY += (mouseY - cursorY) * dt;
+                
+                cursor.style.left = `${cursorX}px`; cursor.style.top = `${cursorY}px`;
+                cursorText.style.left = `${cursorX}px`; cursorText.style.top = `${cursorY}px`;
+            });
+
+            // Hover Logic
+            window.bindCursorTriggers = function() {
+                 const allTriggers = document.querySelectorAll('.cursor-trigger');
+                 allTriggers.forEach(trigger => {
+                    trigger.onmouseenter = () => {
+                        document.body.classList.add('hovering');
+                        // Expand to Diamond shape
+                        gsap.to(cursor, { 
+                            width: 90, 
+                            height: 90, 
+                            duration: 0.4, 
+                            ease: "power3.out" 
+                        });
+                        
+                        if(trigger.tagName === 'A' && trigger.href.includes('mailto')) cursorText.innerText = "Email Me";
+                        else if (trigger.classList.contains('liquid-img-container')) cursorText.innerText = "Open View";
+                        else if (trigger.id === 'close-about' || trigger.id === 'close-lightbox') cursorText.innerText = "Close";
+                        else if (trigger.id === 'load-more-btn') cursorText.innerText = "Load";
+                        else cursorText.innerText = "View";
+                    };
+                    trigger.onmouseleave = () => {
+                        document.body.classList.remove('hovering');
+                        // Reset to small square
+                        gsap.to(cursor, { 
+                            width: 14, 
+                            height: 14, 
+                            duration: 0.4 
+                        });
+                        cursorText.innerText = "View Project";
+                    };
+                });
+            }
+            window.bindCursorTriggers();
+        }
+
+        // --- 5. UI Panels ---
+        const menuBtn = document.getElementById('menu-btn');
+        const closeAboutBtn = document.getElementById('close-about');
+        const aboutPanel = document.getElementById('about-panel');
+
+        function toggleAbout() {
+            aboutPanel.classList.toggle('translate-x-full');
+            if (lenis) {
+                !aboutPanel.classList.contains('translate-x-full') ? lenis.stop() : lenis.start();
+            }
+        }
+        menuBtn.addEventListener('click', toggleAbout);
+        closeAboutBtn.addEventListener('click', toggleAbout);
+
+        // --- 6. Lightbox ---
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbTitle = document.getElementById('lb-title');
+        const closeLbBtn = document.getElementById('close-lightbox');
+
+        window.openLightbox = function(container, title) {
+            const imgSrc = container.querySelector('img').src;
+            const fullRes = imgSrc.split('?')[0] + '?q=90&w=1600'; 
+            lbImg.src = fullRes;
+            lbTitle.innerText = title;
+            lightbox.classList.remove('pointer-events-none', 'opacity-0');
+            if (lenis) lenis.stop();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => { lbImg.src = ""; }, 500);
+            if (lenis) lenis.start();
+        }
+        closeLbBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => {
+            if(e.key === "Escape") {
+                if(!aboutPanel.classList.contains('translate-x-full')) toggleAbout();
+                if(!lightbox.classList.contains('opacity-0')) closeLightbox();
+            }
         });
     </script>
 </body>
 </html>
-
-
