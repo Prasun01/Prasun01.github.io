@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Disallow /admin or specific hidden folders once your backend scales
+# Sitemap: https://yourdomain.com/sitemap.xml
