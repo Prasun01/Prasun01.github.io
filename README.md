@@ -1,80 +1,45 @@
-Photography Portfolio Website
-This is the repository for my personal photography portfolio website, designed to showcase my work in a clean, modern, and engaging way. The site is built with HTML, CSS, and vanilla JavaScript, and it dynamically pulls all of my photos from my Unsplash profile.
+# Prasun Mishra | The Canvas
 
-Live Demo: https://prasun01.github.io/
+A high-performance digital portfolio exploring the juxtaposition of structural architectural geometry and fluid organic chaos. Built with React, GSAP, and Unsplash API.
 
-✨ Features
-Dynamic Unsplash Gallery: Automatically fetches and displays all photos from a specified Unsplash username.
+## Features
+- **Dynamic Imagery**: Fetches high-resolution photography from the Unsplash API with category-based filtering (Portraits vs. Landscapes).
+- **Premium UX**: Smooth scrolling powered by **Lenis** and cinematic transitions using **GSAP**.
+- **Performance**: Optimized builds and minimal layout thrash with modern CSS and `will-change`.
+- **Responsive Design**: Tailored experiences for desktop and mobile, with custom interactive cursor logic.
+- **CI/CD Built-in**: Configured for automated deployment to **GitHub Pages**.
 
-"Load More" Functionality: Images are loaded progressively for better performance, allowing visitors to browse the entire collection without initial long load times.
+## Tech Stack
+- **Frontend**: React 19, Vite
+- **Styling**: Tailwind CSS
+- **Animations**: GSAP (GreenSock), Framer Motion
+- **Performance**: Lenis (Smooth Scroll), Blurhash (Image placeholders)
+- **API**: Unsplash API
 
-Modern Masonry Layout: A "Pinterest-style" grid that elegantly displays photos of various aspect ratios.
+## Getting Started
 
-Interactive Lightbox: Click on any photo to view it in a beautiful, full-screen overlay.
+### 1. Prerequisites
+- Node.js (v20+ recommended)
+- Unsplash Developer Access Key
 
-Responsive Design: Looks great on all devices, from large desktops to mobile phones.
+### 2. Installation
+```bash
+npm install
+```
 
-Smooth Animations: Subtle animations and hover effects provide a polished and professional user experience.
+### 3. Environment Setup
+Create a `.env.local` file in the root directory and add your Unsplash Access Key:
+```env
+VITE_UNSPLASH_ACCESS_KEY=your_access_key_here
+```
 
-Minimalist UI: The design is clean and focused, ensuring the photography is the main attraction.
+### 4. Development
+```bash
+npm run dev
+```
 
-🚀 How to Use
-You can easily clone this repository and customize it to create your own photography portfolio.
+### 5. Deployment
+The repository is set up with GitHub Actions. Simply push to the `main` branch to trigger a deploy. Ensure `VITE_UNSPLASH_ACCESS_KEY` is added to your GitHub Repository Secrets.
 
-Prerequisites:
-
-An Unsplash account with some photos uploaded.
-
-An Unsplash Developer account to get an API key. You can create one at unsplash.com/developers.
-
-Steps:
-
-Clone the repository:
-
-git clone https://github.com/Prasun01/Prasun01.github.io.git
-
-Navigate to the project directory:
-
-cd Prasun01.github.io
-
-Customize the index.html file:
-
-Open index.html in a code editor.
-
-Find the following JavaScript constants at the top of the <script> tag:
-
-const UNSPLASH_API_KEY = 'YOUR_UNSPLASH_API_KEY';
-const UNSPLASH_USERNAME = 'YOUR_UNSPLASH_USERNAME';
-
-Replace 'YOUR_UNSPLASH_API_KEY' with your own Unsplash API Access Key.
-
-Replace 'YOUR_UNSPLASH_USERNAME' with your Unsplash username.
-
-Update Personal Information:
-
-Change the name in the <div class="logo"> and <title> tags.
-
-Update the hero section text and other descriptive content to match your style.
-
-Deploy:
-
-If you're using GitHub Pages, simply commit and push your changes. Your site will be live at https://<your-github-username>.github.io/.
-
-🛠️ Technologies Used
-HTML5: For the structure of the website.
-
-CSS3: For styling, layout (including masonry), and animations.
-
-Vanilla JavaScript: For all dynamic functionality, including the API calls and lightbox feature.
-
-Unsplash API: To fetch photo data dynamically.
-
-📄 License
-This project is licensed under the MIT License. See the LICENSE file for details. You are free to use, modify, and distribute this project.
-
-📬 Contact
-Prasun Mishra
-
-Instagram: @shotbyprasun
-
-Unsplash: @prasunmishra1
+---
+© 2026 Prasun Mishra.
