@@ -63,7 +63,7 @@ export default function AboutPanel({ isOpen, onClose }) {
         <div className="flex flex-col gap-2">
           <span className="text-xs uppercase tracking-widest opacity-50">Contact</span>
           <a href="mailto:Prasunmishra910@gmail.com" className="font-display text-lg hover:text-gray-400 transition-colors cursor-trigger break-all">Prasunmishra910@gmail.com</a>
-          <span className="font-sans text-sm opacity-50 mt-2">Not Available for Hire</span>
+          <span className="font-sans text-sm opacity-50 mt-2">Available for Hire</span>
         </div>
       </div>
     </div>
