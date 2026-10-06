@@ -8,10 +8,16 @@ export function formatTitle(text) {
   return `${words[0].toUpperCase()} ${words[1].toUpperCase()}`; 
 }
 
-export function formatMeta(photo, index) {
+export function formatMeta(photo, index, total) {
   if (!photo) return '';
-  const loc = photo.location ? (photo.location.name || photo.location.city) : 'Unknown';
-  return `${loc || 'Studio'} /// 0${index + 1}`;
+  const loc = photo.location ? (photo.location.name || photo.location.city) : '';
+  const current = String(index + 1).padStart(2, '0');
+  const countStr = total ? `${current} of ${String(total).padStart(2, '0')}` : `0${index + 1}`;
+
+  if (loc && loc.trim() && loc.toLowerCase() !== 'unknown') {
+    return `${loc} /// ${countStr}`;
+  }
+  return countStr;
 }
 
 export function useUnsplash(category = 'All') {
@@ -40,7 +46,16 @@ export function useUnsplash(category = 'All') {
         if (fetchedPhotos.length === 0) {
           setHasMore(false);
         } else {
-          setAllPhotos(prev => pageNum === 1 ? fetchedPhotos : [...prev, ...fetchedPhotos]);
+          setAllPhotos(prev => {
+            if (pageNum === 1) return fetchedPhotos;
+            const existingIds = new Set(prev.map(p => p.id));
+            const newPhotos = fetchedPhotos.filter(p => !existingIds.has(p.id));
+            if (newPhotos.length === 0) {
+              setHasMore(false);
+              return prev;
+            }
+            return [...prev, ...newPhotos];
+          });
         }
       }
     } catch (error) {

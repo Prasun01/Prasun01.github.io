@@ -20,7 +20,7 @@ function App() {
   const { photos, hasMore, loadMore, loading } = useUnsplash(category);
   
   // Custom animation hook integration
-  useGsapAnimations(isPreloaderDone && !loading);
+  useGsapAnimations(isPreloaderDone);
 
   const openLightbox = (imgData) => setLightboxData({ isOpen: true, imgData });
   const closeLightbox = () => setLightboxData({ isOpen: false, imgData: null });
@@ -38,10 +38,10 @@ function App() {
       <div className="ambient-blob blob-1"></div>
       <div className="ambient-blob blob-2"></div>
 
-      {/* Grid Lines - Matching index (1).html */}
-      <div className="grid-line vert left-6 md:left-[15%]"></div>
-      <div className="grid-line vert right-6 md:right-[15%]"></div>
-      <div className="grid-line vert left-[50%] hidden md:block"></div>
+      {/* Grid Lines */}
+      <div className="grid-line vert left-4 sm:left-6 md:left-[8%] lg:left-[10%] hidden sm:block"></div>
+      <div className="grid-line vert right-4 sm:right-6 md:right-[8%] lg:right-[10%] hidden sm:block"></div>
+      <div className="grid-line vert left-[50%] hidden lg:block"></div>
 
       {/* Core UI Overlays */}
       <Cursor />
