@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://prasun01.github.io/</loc>
     <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://prasun01.github.io/newimage.jpg</image:loc>
+      <image:title>Prasun Mishra Visual Poetry Archive</image:title>
+      <image:caption>Architectural and urban minimalism photography by Prasun Mishra</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://prasun01.github.io/myimage.jpg</image:loc>
+      <image:title>Prasun Mishra</image:title>
+      <image:caption>Prasun Mishra Photographer</image:caption>
+    </image:image>
   </url>
 </urlset>
